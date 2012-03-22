@@ -7,6 +7,11 @@ gem 'rails', '3.2.2'
 
 gem 'pg'
 
+#group :test do
+#  # Pretty printed test output
+#  gem 'minitest'
+#  gem 'sqlite3'
+#end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -28,8 +33,8 @@ gem 'jquery-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the app server
-# gem 'unicorn'
+# Use thin as the app server
+# gem 'thin'
 
 # Deploy with Capistrano
 # gem 'capistrano'

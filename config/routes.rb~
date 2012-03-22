@@ -1,19 +1,5 @@
 Mytiny::Application.routes.draw do
-  resources :homes
-
-  get "login/add_user"
-
-  get "login/login"
-
-  get "login/logout"
-
-  get "login/delete_user"
-
-  get "login/list_users"
-
-  resources :users
-
-  # get "home/index"
+  get "home/index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Street:</b>
+  <%= @home.street %>
+</p>
+
+<p>
+  <b>Unit:</b>
+  <%= @home.unit %>
+</p>
+<p>
+  <b>City:</b>
+  <%= @home.city %>
+</p>
+<p>
+  <b>State:</b>
+  <%= @home.state %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%= @home.zip %>
+</p>
+
+
+<%= link_to 'Edit', edit_home_path(@home) %> |
+<%= link_to 'Back', homes_path %>

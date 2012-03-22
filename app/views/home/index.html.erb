@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+  </style>
+  <script type="text/javascript"
+          src="http://maps.googleapis.com/maps/api/js?keyAIzaSyAzHFK3uIPYs2i9wROENmrAdUSe5pTvh78&sensor=true">
+  </script>
+  <script type="text/javascript">
+      var map = null; // map object holds the gmap
+      var geocoder = null;  // coder holds coord and addr info
+
+      function initialize() {
+          var latlng = new google.maps.LatLng(34, -118);
+          var myOptions = {
+              zoom: 10
+              , center: latlng
+              , mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+          geocoder = new google.maps.Geocoder();
+      }
+
+      function showAddress() {
+          var address = document.getElementById("tiny_text_address").value;
+          var infowindow = new google.maps.InfoWindow({content: address});
+          geocoder.geocode( {'address':address}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                  map.setCenter(results[0].geometry.location);
+                  var marker = new google.maps.Marker({
+                      position: results[0].geometry.location
+                      , map: map
+                      , title: address
+                  });
+                  google.maps.event.addListener(marker, 'click', function() {
+                      infowindow.open(map,marker);
+                  });
+                  google.maps.event.trigger(marker, 'click');
+              } else{
+                  alert("Geocode was not successful for the following reason: " + status);
+              }
+          });
+      }
+             /*             var marker = new GMarker(point, {draggable: true});
+                          map.addOverlay(marker);
+                          GEvent.addListener(marker, "dragend", function() {
+                              marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(6));
+                          });
+                          GEvent.addListener(marker, "click", function() {
+                              marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(6));
+                          });
+                          GEvent.trigger(marker, "click");*/
+
+  </script>
+</head>
+<body onload="initialize()" onunload="GUnload()">
+<div> Main Page </div>
+<div>
+  <form id="tiny_form_search" name="tiny_form_search" action="#"
+        onsubmit="showAddress(); return false">
+    <input type="text" name="tiny_text_address" id="tiny_text_address" style="width: 300px"
+           value="4500 Park Granada, Calabasas, CA" accesskey="s" tabindex="1" />
+    <input type="submit" name="tiny_button_search" id="tiny_button_search" value="Go!" tabindex="2" />
+  </form>
+</div>
+<div id="map_canvas" style="width:50%; height:50%">
+</div>
+</body>
+</html>
