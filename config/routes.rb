@@ -1,4 +1,6 @@
 Mytiny::Application.routes.draw do
+  resources :gears
+
   resources :homes
 
   get "login/add_user"
@@ -13,7 +15,7 @@ Mytiny::Application.routes.draw do
 
   resources :users
 
-  # get "home/index"
+  get "home/index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

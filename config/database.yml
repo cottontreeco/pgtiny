@@ -16,10 +16,10 @@
 test:
   encoding: unicode
   adapter: postgresql
-  username: postgres
+  username: tiny
   port: 5432
   host: localhost
-  database: test
+  database: tinytest
   password: loveyyz
   pool: 5
   timeout: 5000
@@ -29,10 +29,10 @@ test:
 development:
   encoding: unicode
   adapter: postgresql
-  username: postgres
+  username: tiny
   port: 5432
   host: localhost  
-  database: tiny
+  database: tinydev
   password: loveyyz 
   pool: 5
   timeout: 5000

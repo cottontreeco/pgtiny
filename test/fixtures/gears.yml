@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+iphone:
+  title: Apple iPhone 5
+  image_url: iPhone5.jpg
+  category: Mobile Phone
+
+ipad:
+  title: Apple iPad 3
+  image_url: ipad.png
+  category: Tablet

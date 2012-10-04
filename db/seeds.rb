@@ -25,3 +25,8 @@ Home.create(:street => '21450 Vanowen St',
             :state => 'CA',
             :zip => '91303')
 
+Gear.delete_all
+Gear.create(:title => 'Apple iPhone 5',
+            :image_url => '/images/iphone5-front-back.jpg',
+            :category => 'Mobile Phone')
+
