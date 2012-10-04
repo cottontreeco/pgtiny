@@ -1,4 +1,5 @@
 class Gear < ActiveRecord::Base
+  default_scope order: 'title'
   validates :title, :category, :image_url, presence: true
   validates :title, uniqueness: true
   validates :image_url, format: {

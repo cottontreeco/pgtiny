@@ -1,4 +1,6 @@
-Mytiny::Application.routes.draw do
+PgTiny::Application.routes.draw do
+  get "cache/index"
+
   resources :gears
 
   resources :homes
@@ -66,7 +68,7 @@ Mytiny::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
+  root to: 'cache#index', as: 'Cache'
 
   # See how all your routes lay out with "rake routes"
 

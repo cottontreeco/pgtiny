@@ -1,0 +1,15 @@
+<% if notice %>
+    <p id="notice"><%= notice %></p>
+<% end %>
+
+<h1>Your Cache</h1>
+
+<% @gears.each do |gear| %>
+    <div class="entry">
+      <%= image_tag(gear.image_url) %>
+      <h3><%= gear.title %></h3>
+      <div class="price_line">
+        <span class="price"><%= gear.category %></span>
+      </div>
+    </div>
+<% end %>

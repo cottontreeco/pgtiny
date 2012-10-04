@@ -9,3 +9,8 @@ ipad:
   title: Apple iPad 3
   image_url: ipad.png
   category: Tablet
+
+ipod:
+  title: Apple iPod Touch
+  image_url: ipod.png
+  category: MP3 Player
