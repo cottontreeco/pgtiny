@@ -1,4 +1,6 @@
 PgTiny::Application.routes.draw do
+  resources :wishes
+
   get "cache/index"
 
   resources :gears

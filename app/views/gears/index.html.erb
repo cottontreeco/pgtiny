@@ -1,7 +1,10 @@
-<div id="product_list" xmlns="http://www.w3.org/1999/html">
-    <h1>Gear List</h1>
+<% if notice %>
+  <p id="notice" ><%= notice %></p>
+<% end %>
 
-    <table>
+<div id="product_list" xmlns="http://www.w3.org/1999/html">
+  <h1>Gear List</h1>
+  <table>
     <% @gears.each do |gear| %>
       <tr class="<%=cycle('list_line_odd', 'list_line_even') %>">
 
@@ -21,7 +24,7 @@
         </td>
       </tr>
     <% end %>
-    </table>
+  </table>
 </div>
 <br />
 

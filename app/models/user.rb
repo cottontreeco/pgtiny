@@ -1,6 +1,7 @@
 require 'digest/sha2'
 
 class User < ActiveRecord::Base
+  has_many :wishs, :dependent => :destroy
   validates :name, :presence => true
   validates :email, :presence => true, :uniqueness => true
   validates :password, :confirmation => true
