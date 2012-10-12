@@ -9,7 +9,7 @@ one:
   salt: <%=SALT%>
 
 two:
-  name: MyString
-  email: MyString
-  hashed_password: MyString
-  salt: MyString
+  name: john
+  email: admin@admin.net
+  hashed_password: <%=User.encrypt_password('secret2', SALT)%>
+  salt: <%=SALT%>

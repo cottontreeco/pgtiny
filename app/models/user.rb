@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
   end
 
   # if the hashed pwd matches, return user object
-  def User.authenticate(name, pwd)
-    if user=find_by_name(name)
+  def User.authenticate(email, pwd)
+    if user=find_by_email(email)
       if user.hashed_password == encrypt_password(pwd, user.salt)
         user
       end

@@ -1,4 +1,12 @@
 PgTiny::Application.routes.draw do
+  get 'admin' => 'admin#index'
+
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+  end
+
   resources :wishes
 
   get "cache/index"
@@ -70,7 +78,7 @@ PgTiny::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root to: 'cache#index', as: 'Cache'
+  root to: 'cache#index', as: 'cache'
 
   # See how all your routes lay out with "rake routes"
 

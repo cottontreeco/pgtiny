@@ -10,6 +10,7 @@
       <h3><%= gear.title %></h3>
       <div class="price_line">
         <span class="price"><%= gear.category %></span>
+        <%= button_to 'Add to Wish List', wishes_path(gear_id: gear) %>
       </div>
     </div>
 <% end %>
