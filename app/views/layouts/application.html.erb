@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Project Tiny</title>
+  <title>Project Tiny | <%= yield(:title) %></title>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <!--<= javascript_include_tag :defaults >-->
   <%= csrf_meta_tags %>
@@ -13,10 +13,16 @@
   </div>
   <div id="columns">
     <div id="side">
-      <a href="#"> Home </a><br/>
-      <a href="#"> Link1 </a><br/>
-      <a href="#"> Link2 </a><br/>
-      <a href="#"> Link3 </a><br/>
+      <a href="/"> Home </a><br/>
+      <a href="about"> About </a><br/>
+      <a href="gears"> Products </a><br/>
+      <a href="users"> Users </a><br/>
+      <% if session[:user_id] %>
+        <br/>
+        <%= link_to 'Wishes', wishes_path %>
+        <br/>
+        <%=  button_to 'Logout', logout_path, method: :delete %>
+      <% end %>
     </div>
   </div>
   <div id="main">

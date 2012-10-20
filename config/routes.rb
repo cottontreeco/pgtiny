@@ -10,20 +10,21 @@ PgTiny::Application.routes.draw do
   resources :wishes
 
   get "cache/index"
+  get 'about' => "cache#about"
 
   resources :gears
 
   resources :homes
 
-  get "login/add_user"
-
-  get "login/login"
-
-  get "login/logout"
-
-  get "login/delete_user"
-
-  get "login/list_users"
+  #get "login/add_user"
+  #
+  #get "login/login"
+  #
+  #get "login/logout"
+  #
+  #get "login/delete_user"
+  #
+  #get "login/list_users"
 
   resources :users
 
