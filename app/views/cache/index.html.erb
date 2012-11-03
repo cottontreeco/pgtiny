@@ -4,6 +4,7 @@
     <p id="notice"><%= notice %></p>
 <% end %>
 
+<div class="center hero-unit">
 <h1>Your Cache</h1>
 
 <% @gears.each do |gear| %>
@@ -16,3 +17,7 @@
       </div>
     </div>
 <% end %>
+<%= link_to("Sign up now!", signup_path, class:"btn btn-large btn-primary") %>
+</div>
+
+<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>

@@ -22,6 +22,13 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get new via signup" do
+    get :signup
+    assert_response :success
+    assert_select 'h1', 'Sign up'
+    assert_select 'title', 'Sign up'
+  end
+
   test "should create user" do
     assert_difference('User.count') do
       post :create, :user => @input_attrib

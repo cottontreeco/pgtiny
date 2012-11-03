@@ -1,40 +1,22 @@
-<div class="tiny_form">
+<div class="span6 offset3">
 
 <%= form_for(@user) do |f| %>
-    <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@user.errors.count, "error") %>
-            prohibited this user from being saved:
-          </h2>
-          <ul>
-            <% @user.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+    <%= render 'shared/error_messages' %>
 
     <fieldset>
-      <legend> Enter User Details</legend>
-      <div>
-        <%= f.label :name %>:
-        <%= f.text_field :name, :size => 40 %>
-      </div>
-      <div>
-        <%= f.label :email %>:
-        <%= f.text_field :email, :size => 40 %>
-      </div>
-      <div>
-        <%= f.label :password %>:
-        <%= f.text_field :password, :size => 40 %>
-      </div>
-      <div>
-        <%= f.label :password_confirmation, 'Confirm' %>:
-        <%= f.text_field :password_confirmation, :size => 40 %>
-      </div>
-      <div>
-        <%= f.submit %>
-      </div>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.label :password_confirmation, 'Confirmation' %>
+        <%= f.password_field :password_confirmation %>
+
+        <%= f.submit "Create my account", class:"btn btn-large btn-primary" %>
     </fieldset>
 <% end %>
 </div>

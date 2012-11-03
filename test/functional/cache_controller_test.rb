@@ -4,7 +4,7 @@ class CacheControllerTest < ActionController::TestCase
   test "should get index page" do
     get :index
     assert_response :success
-    assert_select '#columns #side a', minimum: 4
+    assert_select 'navbar navbar-fixed-top navbar-inner container ul li', minimum: 4
     assert_select '#main .entry', 3
     assert_select 'h3', 'Apple iPhone 5'
   end
@@ -13,5 +13,11 @@ class CacheControllerTest < ActionController::TestCase
     get :about
     assert_response :success
     assert_select 'h1', 'About Social Proof'
+  end
+
+  test "should get contact page" do
+    get :contact
+    assert_response :success
+    assert_select 'h1', 'Contacts for Social Proof'
   end
 end
