@@ -44,9 +44,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        flash[:success] = "#{@user.name}, Welcome to the Tiny App!"
         # redirect to user index page
-        format.html { redirect_to users_url,
-                                  notice: "User #{@user.name} was successfully created." }
+        format.html { redirect_to @user }
         format.json { render json: @user,
                              status: :created,
                              location: @user }
