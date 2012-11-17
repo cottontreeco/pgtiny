@@ -44,6 +44,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        sign_in @user
         flash[:success] = "#{@user.name}, Welcome to the Tiny App!"
         # redirect to user index page
         format.html { redirect_to @user }

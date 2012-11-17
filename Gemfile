@@ -3,8 +3,13 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.2'
 
 group :development, :test do
+  gem 'wdm'
+  gem 'rvm'
   gem 'sqlite3'
   gem 'rspec-rails'
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'spork'
 end
 
 
@@ -18,6 +23,19 @@ end
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
+
+  # Test gems on MACOSX
+  #gem 'rb-fsevent', :require => false
+  #gem 'growl'
+
+  # Test gems on Linux
+  #gem 'rb-inotify'
+  #gem 'libnotify'
+
+  # Test gems on Windows
+  gem 'rb-fchange', '0.0.5'
+  gem 'rb-notifu', '0.0.4'
+  gem 'win32console', '1.3.0'
 end
 
 # Gems used only for assets and not required

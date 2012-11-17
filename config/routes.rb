@@ -2,21 +2,24 @@ PgTiny::Application.routes.draw do
   root to: 'cache#index', as: 'cache'
   get 'admin' => 'admin#index'
 
-  controller :sessions do
-    get 'login' => :new
-    post 'login' => :create
-    delete 'logout' => :destroy
-  end
-
   get "cache/index"
   match('/about', {to: 'cache#about'})
   match('/contact', {to: 'cache#contact'})
-  match('/signup', {to: 'users#new'})
 
   resources :wishes
   resources :gears
   resources :homes
   resources :users
+
+  resources :sessions, only: [:new, :create, :destroy]
+  #controller :sessions do
+  #  get 'login' => :new
+  #  post 'login' => :create
+  #  delete 'logout' => :destroy
+  #end
+  match('/signup', {to: 'users#new'})
+  match '/signin', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :destroy
 
   #get "login/add_user"
   #
