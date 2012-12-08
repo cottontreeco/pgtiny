@@ -19,7 +19,7 @@ PgTiny::Application.routes.draw do
   #end
   match('/signup', {to: 'users#new'})
   match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :destroy
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   #get "login/add_user"
   #
