@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  #requires sign in before updating or editing a user
+  before_filter :signed_in_user, only: [:index, :edit, :update]
+  #require the right user to be signed in
+  before_filter :correct_user, only: [:edit, :update]
   # GET /users
   # GET /users.json
   def index
@@ -34,7 +38,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    # after using before filter, this is no longer needed
+    # @user = User.find(params[:id])
   end
 
   # POST /users
@@ -62,13 +67,13 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
-
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        sign_in @user
         # redirect to user index page
-        format.html { redirect_to users_url,
-                                  notice: "User #{@user.name} was successfully updated." }
+        format.html {
+          redirect_to user_url,notice: "Profile updated successfully for user #{@user.name}."
+        }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -89,4 +94,17 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in."
+      end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(cache_path) unless current_user?(@user)
+    end
 end
