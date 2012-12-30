@@ -1,12 +1,15 @@
 class UsersController < ApplicationController
   #requires sign in before updating or editing a user
-  before_filter :signed_in_user, only: [:index, :edit, :update]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   #require the right user to be signed in
   before_filter :correct_user, only: [:edit, :update]
+  #only admin user can invoke destroy
+  before_filter :admin_user, only: :destroy
+
   # GET /users
   # GET /users.json
   def index
-    @users = User.order(:name)
+    @users = User.paginate(page: params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -88,11 +91,12 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
-    end
+    flash[:success]="User destroyed."
+    redirect_to users_url
+    #respond_to do |format|
+    #  format.html { redirect_to users_url }
+    #  format.json { head :no_content }
+    #end
   end
 
   private
@@ -106,5 +110,9 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(cache_path) unless current_user?(@user)
+    end
+
+    def admin_user
+      redirect_to(cache_path) unless current_user.admin?
     end
 end
