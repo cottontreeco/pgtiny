@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   before_filter :correct_user, only: [:edit, :update]
   #only admin user can invoke destroy
   before_filter :admin_user, only: :destroy
+  #only guest user can create or sign up
+  before_filter :sign_up_user, only: [:new, :create]
 
   # GET /users
   # GET /users.json
@@ -104,6 +106,12 @@ class UsersController < ApplicationController
       unless signed_in?
         store_location
         redirect_to signin_url, notice: "Please sign in."
+      end
+    end
+
+    def sign_up_user
+      if signed_in?
+        redirect_to cache_path, notice: "Already signed in."
       end
     end
 

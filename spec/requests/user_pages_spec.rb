@@ -112,6 +112,7 @@ describe "User pages" do
       sign_in user
       visit edit_user_path(user)
     end
+
     describe "page" do
       it {should have_selector('h1', text: "Update your profile")}
       it {should have_selector('title', text: "Edit user")}
@@ -130,7 +131,7 @@ describe "User pages" do
         fill_in "Name", with: new_name
         fill_in "Email", with: new_email
         fill_in "Password", with: user.password
-        fill_in "Confirm Password", with: user.password
+        fill_in "Password Confirmation", with: user.password
         click_button "Save changes"
       end
 
