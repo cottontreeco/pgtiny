@@ -1,6 +1,28 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.2'
+# To use bootstrap
+gem 'bootstrap-sass'
+
+# To use ActiveModel has_secure_password
+gem 'bcrypt-ruby', '~> 3.0.0'
+
+gem 'faker'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+gem 'jquery-rails'
+
+# To use Jbuilder templates for JSON
+# gem 'jbuilder'
+
+# Use thin as the app server
+# gem 'thin'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+# gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :development, :test do
   gem 'wdm'
@@ -22,7 +44,6 @@ end
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
-  gem 'faker'
 
   # Test gems on MACOSX
   #gem 'rb-fsevent', :require => false
@@ -50,24 +71,3 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-
-# To use bootstrap
-gem 'bootstrap-sass'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
-
-# To use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use thin as the app server
-# gem 'thin'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
