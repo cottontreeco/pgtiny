@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   #require the right user to be signed in
   before_filter :correct_user, only: [:edit, :update]
   #only admin user can invoke destroy
-  before_filter :admin_user, only: :destroy
+  before_filter :admin_user, only: [:destroy]
   #only guest user can create or sign up
   before_filter :sign_up_user, only: [:new, :create]
 
@@ -92,8 +92,12 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-    flash[:success]="User destroyed."
+    if current_user?(@user)
+      flash[:failure] = "Admin cannot destory itself."
+    else
+      @user.destroy
+      flash[:success]="User destroyed."
+    end
     redirect_to users_url
     #respond_to do |format|
     #  format.html { redirect_to users_url }
