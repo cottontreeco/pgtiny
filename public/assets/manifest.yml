@@ -1,7 +1,13 @@
 ---
-iphone5-front-back.jpg: iphone5-front-back.jpg
-rails.png: rails.png
-application.js: application.js
-application.css: application.css
-glyphicons-halflings-white.png: glyphicons-halflings-white.png
-glyphicons-halflings.png: glyphicons-halflings.png
+iphone5-front-back.jpg: iphone5-front-back-3b39fadbf329c4250a6cb926aacfd584.jpg
+iphone5-front-back/index.jpg: iphone5-front-back-3b39fadbf329c4250a6cb926aacfd584.jpg
+rails.png: rails-a3386665c05a2d82f711a4aaa72d247c.png
+rails/index.png: rails-a3386665c05a2d82f711a4aaa72d247c.png
+application.js: application-00bdf4bcd5827368e7f25bc72cead305.js
+application/index.js: application-00bdf4bcd5827368e7f25bc72cead305.js
+application.css: application-3ed777ab0bcffee858aa9440eaf99ede.css
+application/index.css: application-3ed777ab0bcffee858aa9440eaf99ede.css
+glyphicons-halflings-white.png: glyphicons-halflings-white-6cccd17a7aed91dbc0157d343c68c0d9.png
+glyphicons-halflings-white/index.png: glyphicons-halflings-white-6cccd17a7aed91dbc0157d343c68c0d9.png
+glyphicons-halflings.png: glyphicons-halflings-2851b489e8c39f8fad44fc10efb99c3e.png
+glyphicons-halflings/index.png: glyphicons-halflings-2851b489e8c39f8fad44fc10efb99c3e.png

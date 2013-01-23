@@ -10,8 +10,8 @@ PgTiny::Application.routes.draw do
   resources :gears
   resources :homes
   resources :users
-
   resources :sessions, only: [:new, :create, :destroy]
+  resources :microposts, only: [:create, :destroy]
   #controller :sessions do
   #  get 'login' => :new
   #  post 'login' => :create

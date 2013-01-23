@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :wishs, dependent: :destroy
   attr_accessible :name, :email, :password,:password_confirmation
   has_secure_password
+  has_many :microposts, dependent: :destroy
 
   before_save {self.email.downcase!}
   before_save :create_remember_token
