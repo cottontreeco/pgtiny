@@ -18,7 +18,7 @@ describe "Static Pages" do
         FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
         FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
         sign_in user
-        #visit cache_url
+        visit '/'
       end
 
       it "should render the user's feed" do
