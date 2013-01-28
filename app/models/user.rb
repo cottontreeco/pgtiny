@@ -17,6 +17,12 @@ class User < ActiveRecord::Base
   validates :password, length: {minimum: 6}, confirmation: true
   validates :password_confirmation, presence: true
 
+  def feed
+    #Preliminary
+    #question mark is to escape the id value
+    #to avoid SQL injection
+    Micropost.where("user_id=?", id)
+  end
   #attr_accessor :password_confirmation, :name, :email
   #attr_reader :password
 
