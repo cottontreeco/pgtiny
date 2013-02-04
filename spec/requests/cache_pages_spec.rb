@@ -28,6 +28,18 @@ describe "Static Pages" do
           page.should have_selector("li##{item.id}", text: item.content)
         end
       end
+
+      describe "should have multiple feed count" do
+        it {should have_content('2 microposts')}
+      end
+
+      describe "should have singular feed count" do
+        before do
+          click_link "delete"
+        end
+        it {should_not have_content('microposts')}
+        it {should have_content('1 micropost')}
+      end
     end
   end
 end

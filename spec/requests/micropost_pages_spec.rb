@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "MicropostPages" do
+describe "Micropost Pages" do
   subject {page}
   let(:user) {FactoryGirl.create(:user)}
   before {sign_in user}
@@ -26,6 +26,19 @@ describe "MicropostPages" do
       before {fill_in 'micropost_content', with: "Lorem ipsum"}
       it "should create a micropost" do
         expect {click_button "Post"}.to change(Micropost, :count).by(1)
+      end
+    end
+
+    describe "with pagination" do
+      before(:all) {100.times {FactoryGirl.create(:micropost, user: user, content: "Foo")}}
+      after(:all) {user.microposts.delete_all}
+
+      it {should have_selector('div.pagination')}
+
+      it "should list each micropost" do
+        Micropost.paginate(page: 1).each do |mp|
+          page.should have_selector('li', text: mp.content)
+        end
       end
     end
   end

@@ -57,15 +57,26 @@ describe "User pages" do
     let(:user) { FactoryGirl.create(:user)}
     let!(:m1) {FactoryGirl.create(:micropost, user: user, content: "Foo")}
     let!(:m2) {FactoryGirl.create(:micropost, user: user, content: "Bar")}
+    let(:wrong_user) {FactoryGirl.create(:user, email: "wrong@example.com")}
+    let!(:m3) {FactoryGirl.create(:micropost, user: wrong_user, content: "wrong post")}
 
     before {visit user_path(user)}
     it {should have_selector('h1', text: user.name)}
     it {should have_selector('title', text: user.name)}
 
-    describe "microposts" do
+    describe "for users with microposts" do
+      before { sign_in user }
       it {should have_content(m1.content)}
       it {should have_content(m2.content)}
       it {should have_content(user.microposts.count)}
+      it {should have_link('delete', href:micropost_path(m1))}
+    end
+
+    describe "for other user should not have delete links for microposts" do
+      before {visit user_path(wrong_user)}
+      it {should have_content(m3.content)}
+      it {should have_content(wrong_user.microposts.count)}
+      it {should_not have_link('delete', href:micropost_path(m3))}
     end
   end
 

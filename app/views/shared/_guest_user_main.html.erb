@@ -1,0 +1,14 @@
+<div class="center hero-unit">
+    <h1>Your Cache</h1>
+    <% @gears.each do |gear| %>
+        <div class="entry">
+          <%= image_tag(gear.image_url) %>
+          <h3><%= gear.title %></h3>
+          <div class="price_line">
+            <span class="price"><%= gear.category %></span>
+            <%= button_to 'Add to Wish List', wishes_path(gear_id: gear) %>
+          </div>
+        </div>
+    <% end %>
+    <%= link_to("Sign up now!", signup_path, class:"btn btn-large btn-primary") %>
+</div>

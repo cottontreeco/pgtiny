@@ -5,34 +5,8 @@
 <% end %>
 
 <% if signed_in? %>
-  <div class="row">
-    <aside class="span4">
-      <section>
-        <%= render 'shared/user_info' %>
-      </section>
-      <section>
-        <%= render 'shared/micropost_form' %>
-      </section>
-    </aside>
-    <div class="span8">
-      <h3>Micropost Feed</h3>
-      <%= render 'shared/feed' %>
-    </div>
-  </div>
+  <%= render 'shared/signed_in_user_main' %>
 <% else %>
-  <div class="center hero-unit">
-    <h1>Your Cache</h1>
-    <% @gears.each do |gear| %>
-        <div class="entry">
-          <%= image_tag(gear.image_url) %>
-          <h3><%= gear.title %></h3>
-          <div class="price_line">
-            <span class="price"><%= gear.category %></span>
-            <%= button_to 'Add to Wish List', wishes_path(gear_id: gear) %>
-          </div>
-        </div>
-    <% end %>
-    <%= link_to("Sign up now!", signup_path, class:"btn btn-large btn-primary") %>
-  </div>
-  <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+  <%= render 'shared/guest_user_main' %>
 <% end %>
+<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
