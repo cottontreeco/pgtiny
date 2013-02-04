@@ -6,6 +6,18 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :microposts, dependent: :destroy
 
+  # specify foreign key column name to override the default "relationship_id"
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  #specify the source of the user id via followed_id
+  has_many :followed_users, through: :relationships, source: :followed
+
+  # specify class name to reuse existing relationship table with different id
+  # otherwise a ReverseRelationship class does not exist
+  has_many :reverse_relationships, foreign_key: "followed_id",
+           class_name: "Relationship", dependent: :destroy
+  #specify the source of the user id via follower_id
+  has_many :followers, through: :reverse_relationships, source: :follower
+
   before_save {self.email.downcase!}
   before_save :create_remember_token
 
@@ -22,6 +34,18 @@ class User < ActiveRecord::Base
     #question mark is to escape the id value
     #to avoid SQL injection
     Micropost.where("user_id=?", id)
+  end
+
+  def following?(other_user)
+    self.relationships.find_by_followed_id(other_user.id)
+  end
+
+  def follow!(other_user)
+    self.relationships.create!(followed_id: other_user.id)
+  end
+
+  def unfollow!(other_user)
+    self.relationships.find_by_followed_id(other_user.id).destroy
   end
   #attr_accessor :password_confirmation, :name, :email
   #attr_reader :password
