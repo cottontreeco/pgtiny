@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   #requires sign in before updating or editing a user
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
   #require the right user to be signed in
   before_filter :correct_user, only: [:edit, :update]
   #only admin user can invoke destroy
@@ -103,6 +103,20 @@ class UsersController < ApplicationController
     #  format.html { redirect_to users_url }
     #  format.json { head :no_content }
     #end
+  end
+
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
   end
 
   private
