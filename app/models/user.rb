@@ -33,7 +33,8 @@ class User < ActiveRecord::Base
     #Preliminary
     #question mark is to escape the id value
     #to avoid SQL injection
-    Micropost.where("user_id=?", id)
+    #Micropost.where("user_id=?", id)
+    Micropost.from_users_followed_by(self)
   end
 
   def following?(other_user)
