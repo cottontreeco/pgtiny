@@ -140,6 +140,29 @@ describe User do
     its(:remember_token){should_not be_blank}
   end
 
+  describe "relationships" do
+    let(:followed_user) {FactoryGirl.create(:user)}
+    let(:follower){FactoryGirl.create(:user)}
+    before do
+      @user.save
+      @user.follow!(followed_user)
+      follower.follow!(@user)
+    end
+    it "should destroy associated relationships" do
+      followers=@user.followers.dup
+      followed_users = @user.followed_users.dup
+      @user.destroy
+      followers.should_not be_empty
+      followed_users.should_not be_empty
+      followers.each do |follower|
+        Relationship.find_by_follower_id(follower.id).should be_nil
+      end
+      followed_users.each do |followed_user|
+        Relationship.find_by_followed_id(followed_user.id).should be_nil
+      end
+    end
+  end
+
   describe "micropost associations" do
     before {@user.save}
     #let! creates the object immediately as opposed to
