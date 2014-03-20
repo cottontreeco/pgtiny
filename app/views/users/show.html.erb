@@ -1,42 +1,11 @@
-<%provide(:title, @user.name)%>
+<% provide(:title, @user.name) %>
 <p id="notice"><%= notice %></p>
-
 <div class="row">
   <aside class="span4">
-    <section>
-      <%= render 'shared/user_info' %>
-    </section>
-    <section>
-      <%= render 'shared/stats' %>
-    </section>
+    <h1><%= @user.name %></h1>
+    <b>Email:</b> <%= @user.email %>
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+    <%= link_to 'Back', users_path %>
   </aside>
-
-  <div class="span8">
-    <%= render 'users/follow_form' if signed_in? %>
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%=@user.microposts.count%>)</h3>
-      <ol class="microposts">
-        <%= render @microposts %>
-      </ol>
-      <%= will_paginate @microposts %>
-    <% end %>
-  </div>
 </div>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-<p>
-  <b>Hashed Password:</b>
-  <%= @user.password_digest %>
-</p>
-
-<p>
-  <b>Remembered Cookie:</b>
-  <%= @user.remember_token %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>

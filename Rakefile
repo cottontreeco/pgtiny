@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-PgTiny::Application.load_tasks
+Pgship::Application.load_tasks

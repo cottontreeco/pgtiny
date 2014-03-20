@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Consignee:</b>
+  <%= @freight.consignee%>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @freight.status %>
+</p>
+
+<p>
+  <b>Remark:</b>
+  <%= @freight.remark %>
+</p>
+
+<%= link_to 'Edit', edit_freight_path(@freight) %> |
+<%= link_to 'Back', freights_path %>

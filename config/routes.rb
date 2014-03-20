@@ -1,42 +1,15 @@
-PgTiny::Application.routes.draw do
-  root to: 'cache#index', as: 'cache'
-  get 'admin' => 'admin#index'
-
-  get "cache/index"
-  match('/about', {to: 'cache#about'})
-  match('/contact', {to: 'cache#contact'})
-
-  resources :wishes
-  resources :gears
-  resources :homes
-  resources :users do
-    member do
-      get :following, :followers
-    end
-  end
+Pgship::Application.routes.draw do
+  resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts, only: [:create, :destroy]
-  resources :relationships, only: [:create, :destroy]
-  #controller :sessions do
-  #  get 'login' => :new
-  #  post 'login' => :create
-  #  delete 'logout' => :destroy
-  #end
-  match('/signup', {to: 'users#new'})
-  match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
+  resources :freights
 
-  #get "login/add_user"
-  #
-  #get "login/login"
-  #
-  #get "login/logout"
-  #
-  #get "login/delete_user"
-  #
-  #get "login/list_users"
+  root('static_pages#home')
+  match('help', to: 'static_pages#help', via: 'get')
+  match('about', to: 'static_pages#about', via: 'get')
+  match('signup', to: 'users#new', via: 'get')
 
-  get "home/index"
+  match('/signin', to: 'sessions#new', via: 'get')
+  match('/signout', to: 'sessions#destroy', via: 'delete')
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -86,8 +59,8 @@ PgTiny::Application.routes.draw do
   #   end
 
   # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-
+  # just remember to delete public/index.html.delete.
+  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

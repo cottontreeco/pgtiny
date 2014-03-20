@@ -1,73 +1,44 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
+ruby '2.0.0'
 
 gem 'rails'
-# To use bootstrap
-gem 'bootstrap-sass'
-
-# To use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
-
+gem 'bcrypt-ruby'
 gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-gem 'jquery-rails'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use thin as the app server
-# gem 'thin'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :development, :test do
-  gem 'wdm'
-  gem 'rvm'
-  gem 'sqlite3'
   gem 'rspec-rails'
-  gem 'guard-rspec'
-  gem 'guard-spork'
-  gem 'spork'
+end
+
+group :test do
+  gem 'selenium-webdriver'
+  gem 'capybara'
+  gem 'factory_girl_rails'
 end
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'pg'
 
-group :production do
-  gem 'pg'
-end
+# for Heroku assets
+gem 'rails_12factor'
 
-group :test do
-  gem 'capybara'
-  gem 'factory_girl_rails'
-
-  # Test gems on MACOSX
-  #gem 'rb-fsevent', :require => false
-  #gem 'growl'
-
-  # Test gems on Linux
-  #gem 'rb-inotify'
-  #gem 'libnotify'
-
-  # Test gems on Windows
-  gem 'rb-fchange', '0.0.5'
-  gem 'rb-notifu', '0.0.4'
-  gem 'win32console', '1.3.0'
-end
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
-
-  gem 'uglifier', '>= 1.0.3'
-end
-
+gem 'sass-rails'
+gem 'coffee-rails'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', :platforms => :ruby
+gem 'uglifier'
+gem 'jquery-rails'
+# To use Jbuilder templates for JSON
+gem 'jbuilder'
+# gem 'turbolinks'
+# gem 'jquery_mobile_rails'
+# To use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.0.0'
+# Use unicorn as the app server
+# gem 'unicorn'
+# Deploy with Capistrano
+# gem 'capistrano'
+# To use debugger
+# gem 'debugger'

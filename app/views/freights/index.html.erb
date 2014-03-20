@@ -1,0 +1,29 @@
+<h1>Listing freights</h1>
+
+<table class="table table-striped">
+  <tr>
+    <th>Consignee</th>
+    <th>Status</th>
+    <th>Remark</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @freights.each do |freight| %>
+  <tr>
+    <td><%= freight.consignee%></td>
+    <td><%= freight.status %></td>
+    <td><%= freight.remark %></td>
+    <td><%= link_to 'Show', freight %></td>
+    <td><%= link_to 'Edit', edit_freight_path(freight) %></td>
+    <td><%= link_to 'Destroy', freight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<div class="btn btn-mini btn-primary">
+  <%= link_to 'New Freight', new_freight_path %>
+</div>

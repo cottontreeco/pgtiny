@@ -1,27 +1,17 @@
 <% provide(:title, "Sign in") %>
-<h1> Sign in </h1>
+<h1>Sign in</h1>
 
-<%if flash[:alert] %>
-  <p id="notice"><%= flash[:alert] %></p>
-<%end%>
-
-<div class = "row">
+<div class="row">
   <div class="span6 offset3">
-  <%= form_tag('/sessions', method: :post) do %>
-    <fieldset>
-      <div>
-        <label for="email">Email:</label>
-        <%= text_field_tag :email, params[:email] %>
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <%= password_field_tag :password, params[:password] %>
-      </div>
-      <div>
-        <%= submit_tag "Sign in", class: "btn btn-large btn-primary"  %>
-      </div>
-    </fieldset>
-  <% end %>
-    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+    <%= form_tag(sessions_path) do %>
+      <%=label_tag :email %>
+      <%=text_field_tag :email, params[:email] %>
+      <%=label_tag :password%>
+      <%=password_field_tag :password%>
+
+      <%=submit_tag("Sign in", class: "btn btn-large btn-primary") %>
+    <% end %>
+
+    <p>New user? <%=link_to("Sign up now!", signup_path)%></p>
   </div>
 </div>
