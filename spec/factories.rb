@@ -9,4 +9,8 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :product do
+    description "Test Product"
+  end
 end
