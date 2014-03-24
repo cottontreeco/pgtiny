@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :reviews
-  has_many :products
+  #destroying user will also remove the reviews
+  has_many :reviews, dependent: :destroy
   before_save { self.email=email.downcase}
   before_create :create_remember_token
   validates :name, presence: true, length: {maximum: 50}

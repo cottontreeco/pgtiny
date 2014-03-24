@@ -11,6 +11,12 @@ FactoryGirl.define do
   end
 
   factory :product do
-    description "Test Product"
+    sequence(:name) {|n| "Product #{n}"}
+  end
+
+  factory :review do
+    remark "Lorem ipsum"
+    user
+    product
   end
 end

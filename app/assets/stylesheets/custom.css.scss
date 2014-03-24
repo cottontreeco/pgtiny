@@ -1,7 +1,8 @@
 /* mixins, variables, etc. */
 @import "bootstrap";
-$greyMediumLight: #eaeaea;
-$grayLighter: #eee;
+$grayMediumLight: #eaeaea;
+$grayLight: #bababa;
+$grayLighter: #c4c4c4;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -117,7 +118,7 @@ footer ul li {
 aside {
   section {
     padding: 10px 0;
-    border-top: 1px solid $greyMediumLight;
+    border-top: 1px solid $grayMediumLight;
     &:first-child {
       border: 0;
       padding-top: 0;
@@ -236,4 +237,30 @@ form#header_signin_form
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
   color:    #999;
+}
+
+/* reviews */
+.reviews {
+  list-style: none;
+  margin: 10px 0 0 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+.remark {
+  display: block;
+}
+.timestamp {
+  color: $grayLight;
+}
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+aside {
+  textarea {
+    height: 100px;
+    margin-bottom: 5px;
+  }
 }

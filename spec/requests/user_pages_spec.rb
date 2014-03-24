@@ -1,17 +1,21 @@
 require 'spec_helper'
 
-describe "User Pages" do
+describe "User pages" do
   subject { page }
 
   describe "index" do
     let(:user) {FactoryGirl.create(:user)}
-    before (:each) do
+    before (:each) do   # for each example, sign in and visit
       valid_signin user
       visit users_path
     end
 
     it {should have_title('All users')}
     it {should have_content('All users')}
+
+    describe "show user link" do
+      it {should have_link(user.name, href: user_path(user))}
+    end
 
     describe "pagination" do
       before(:all) {30.times {FactoryGirl.create(:user)}}
@@ -87,10 +91,18 @@ describe "User Pages" do
 
   describe "Profile page" do
     let (:user) { FactoryGirl.create(:user)}
+    let!(:m1) {FactoryGirl.create(:review, user: user, remark: "Foo")}
+    let!(:m2) {FactoryGirl.create(:review, user: user, remark: "Bar")}
     before {visit user_path(user)}
 
     it {should have_content(user.name)}
     it {should have_title(user.name)}
+
+    describe "reviews" do
+      it {should have_content(m1.remark)}
+      it {should have_content(m2.remark)}
+      it {should have_content(user.reviews.count)}
+    end
   end
 
   describe "edit" do

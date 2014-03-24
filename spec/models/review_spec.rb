@@ -3,13 +3,14 @@ require 'spec_helper'
 describe Review do
   let(:user) {FactoryGirl.create(:user)}
   let(:product) {FactoryGirl.create(:product)}
-  before {@review = Review.new(content: "Lorem ipsum",
-      user_id: user.id,
+  #before {@review = Review.new(remark: "Lorem ipsum",
+  #    user_id: user.id,
+  #    product_id: product.id)}
+  before {@review = user.reviews.build(remark: "Lorem ipsum",
       product_id: product.id)}
-
   subject {@review}
 
-  it {should respond_to(:content)}
+  it {should respond_to(:remark)}
   it {should respond_to(:user_id)}
   it {should respond_to(:user)}
   its(:user){should eq user}
@@ -27,6 +28,16 @@ describe Review do
 
   describe "when product_id is not present" do
     before {@review.product_id=nil}
+    it {should_not be_valid}
+  end
+
+  describe "with blank remark" do
+    before {@review.remark = " "}
+    it {should_not be_valid}
+  end
+
+  describe "with remark that is too long" do
+    before {@review.remark = "a"*141}
     it {should_not be_valid}
   end
 end

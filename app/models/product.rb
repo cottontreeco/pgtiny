@@ -1,3 +1,6 @@
 class Product < ActiveRecord::Base
-  has_many :reviews
+  #destroying product will also remove the reviews
+  has_many :reviews, dependent: :destroy
+  validates :name, presence: true, length: {maximum: 64},
+            uniqueness: {case_sensitive: false }
 end

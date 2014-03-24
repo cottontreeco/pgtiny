@@ -4,8 +4,15 @@
   <aside class="span4">
     <h1><%= @user.name %></h1>
     <b>Email:</b> <%= @user.email %>
-    <%= link_to 'Edit', edit_user_path(@user) %> |
-    <%= link_to 'Back', users_path %>
   </aside>
+  <div class="span8">
+    <%if @user.reviews.any?%>
+      <h3>Reviews (<%=@user.reviews.count%>)</h3>
+      <ol class="reviews">
+        <%=render @reviews%>
+      </ol>
+      <%=will_paginate @reviews%>
+    <%end%>
+  </div>
 </div>
 

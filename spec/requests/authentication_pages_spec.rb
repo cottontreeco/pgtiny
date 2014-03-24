@@ -77,6 +77,17 @@ describe "Authentication" do
         end
       end
 
+      describe "in the Reviews controller" do
+        describe "submitting to the create action" do
+          before {post reviews_path}
+          specify {expect(response).to redirect_to(signin_path)}
+        end
+        describe "submitting to the destroy action" do
+          before {delete review_path(FactoryGirl.create(:review))}
+          specify {expect(response).to redirect_to(signin_path)}
+        end
+      end
+
       describe "in the Users controller" do
         describe "visiting the edit page" do
           before {visit edit_user_path(user)}
@@ -144,7 +155,7 @@ describe "Authentication" do
     describe "as admin user" do
       let(:admin) {FactoryGirl.create(:admin)}
       before {valid_signin admin, no_capybara: true}
-      describe "submitting a DELETE request to the Users#destroy action" do
+      describe "submitting a DELETE request to the Users#destroy action to self destroy" do
         before {delete user_path(admin)}
         specify {expect(response).to redirect_to(root_url)}
       end

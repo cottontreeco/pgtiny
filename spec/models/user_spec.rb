@@ -18,7 +18,6 @@ describe User do
   it {should respond_to(:authenticate)}
   it {should respond_to(:admin)}
   it {should respond_to(:reviews)}
-  it {should respond_to(:products)}
   it {should be_valid}
   it {should_not be_admin}
 
@@ -122,6 +121,31 @@ describe User do
       before {@user.save}
       its(:remember_token) {should_not be_blank}
       it {expect(@user.remember_token).not_to be_blank}
+    end
+  end
+
+  describe "review associations" do
+    before {@user.save}
+    let!(:older_review) do
+      FactoryGirl.create(:review, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_review) do
+      FactoryGirl.create(:review, user: @user, created_at: 1.hour.ago)
+    end
+    it "should have the right reviews in the right order" do
+      expect(@user.reviews.to_a).to eq [newer_review, older_review]
+    end
+    it "should destroy associated reviews" do
+      reviews = @user.reviews.to_a #must call to_a to create a copy
+      @user.destroy #otherwise destroy will make reviews array empty
+      expect(reviews).not_to be_empty
+      reviews.each do |review|
+        expect(Review.where(id: review.id)).to be_empty
+      end
+      # if using find, it will raise error, where will return empty object
+      #expect do
+      #  Review.find(review)
+      #end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end
