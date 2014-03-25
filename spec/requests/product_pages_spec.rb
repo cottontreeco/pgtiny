@@ -41,4 +41,24 @@ describe "Product pages" do
       end
     end
   end
+
+  describe "detail page" do
+    let(:product) {FactoryGirl.create(:product)}
+    let(:user1) { FactoryGirl.create(:user)}
+    let(:user2) { FactoryGirl.create(:user)}
+    let(:m1) {FactoryGirl.create(:review, user: user1, product: product, remark: "Foo")}
+    let(:m2) {FactoryGirl.create(:review, user: user2, product: product, remark: "Bar")}
+    before {visit product_path(product)}
+
+    it {should have_content(product.name)}
+    it {should have_title(product.name)}
+
+    describe "reviews" do
+      it {should have_content(user1.name)}
+      it {should have_content(m1.remark)}
+      it {should have_link(user_path(user2))}
+      it {should have_content(m2.remark)}
+      it {should have_content(product.reviews.count)}
+    end
+  end
 end

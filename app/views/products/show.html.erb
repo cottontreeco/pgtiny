@@ -9,7 +9,8 @@
     <%if @product.reviews.any?%>
         <h3>Reviews (<%=@product.reviews.count%>)</h3>
         <ol class="reviews">
-          <%=render @reviews%>
+          <%=render partial: "reviews/product_review",
+                    collection: @reviews, as: :review%>
         </ol>
         <%=will_paginate @reviews%>
     <%end%>
