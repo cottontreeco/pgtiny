@@ -1,7 +1,10 @@
 <li>
-  <span class="product"><%=link_to(review.product.name,
-                                   product_path(review.product))%>:</span>
-  <span class="remark"><%=review.remark%></span>
+  <span class="product">
+    <%=link_to(review.product.name, product_path(review.product))%>:
+  </span>
+  <span class="remark">
+    <%=review.remark%>
+  </span>
   <span class="timestamp">
     Posted <%=time_ago_in_words(review.created_at)%> ago.
   </span>

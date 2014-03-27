@@ -40,4 +40,7 @@ Pgship::Application.configure do
 
   # Speed up tests by lowering bcrypt's cost factor
   ActiveModel::SecurePassword.min_cost = true
+
+  # For debugging spec tests
+  Capybara.save_and_open_page_path = 'tmp/capybara'
 end

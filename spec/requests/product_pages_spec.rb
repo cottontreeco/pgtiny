@@ -4,7 +4,9 @@ describe "Product pages" do
   subject {page}
 
   describe "index" do
-    let(:product) {FactoryGirl.create(:product)}
+    # use let! because show product link test
+    # is the first time product is mentioned
+    let!(:product) {FactoryGirl.create(:product)}
     before(:each) { visit products_path }
     it {should have_title('All products')}
     it {should have_content('All products')}
@@ -14,7 +16,7 @@ describe "Product pages" do
     end
 
     describe "pagination" do
-      before(:all) {40.times {FactoryGirl.create(:product)}}
+      before(:all) {30.times {FactoryGirl.create(:product)}}
       after(:all) {Product.delete_all}
       it {should have_selector('div.pagination')}
       it "should list each product" do
@@ -29,8 +31,8 @@ describe "Product pages" do
       describe "as an admin user" do
         let(:admin) {FactoryGirl.create(:admin)}
         before do
-          valid_signin admin
-          visit products_path
+          valid_signin admin # sign in directs to profile afterwards
+          visit products_path # need to visit again
         end
         it {should have_link('delete', href: product_path(Product.first))}
         it "should be able to delete a product" do
@@ -43,20 +45,18 @@ describe "Product pages" do
   end
 
   describe "detail page" do
-    let(:product) {FactoryGirl.create(:product)}
-    let(:user1) { FactoryGirl.create(:user)}
-    let(:user2) { FactoryGirl.create(:user)}
-    let(:m1) {FactoryGirl.create(:review, user: user1, product: product, remark: "Foo")}
-    let(:m2) {FactoryGirl.create(:review, user: user2, product: product, remark: "Bar")}
-    before {visit product_path(product)}
+    let!(:product) {FactoryGirl.create(:product)}
+    let!(:m1) {FactoryGirl.create(:review, product: product, remark: "Foo")}
+    let!(:m2) {FactoryGirl.create(:review, product: product, remark: "Bar")}
+    before(:each) {visit product_path(product)}
 
     it {should have_content(product.name)}
     it {should have_title(product.name)}
 
     describe "reviews" do
-      it {should have_content(user1.name)}
       it {should have_content(m1.remark)}
-      it {should have_link(user_path(user2))}
+      it {should have_link(m2.user.name,
+                           href: user_path(m2.user))}
       it {should have_content(m2.remark)}
       it {should have_content(product.reviews.count)}
     end
