@@ -44,7 +44,7 @@ describe "Product pages" do
     end
   end
 
-  describe "detail page" do
+  describe "detail" do
     let!(:product) {FactoryGirl.create(:product)}
     let!(:m1) {FactoryGirl.create(:review, product: product, remark: "Foo")}
     let!(:m2) {FactoryGirl.create(:review, product: product, remark: "Bar")}
@@ -60,5 +60,13 @@ describe "Product pages" do
       it {should have_content(m2.remark)}
       it {should have_content(product.reviews.count)}
     end
+  end
+
+  describe "new product" do
+    before {visit new_product_path}
+    let(:create) {"Create product"}
+
+    it { should have_content('New Product') }
+    it { should have_title(full_title('New Product')) }
   end
 end

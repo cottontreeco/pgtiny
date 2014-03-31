@@ -1,31 +1,14 @@
-<%= form_for(@freight) do |f| %>
-  <% if @freight.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@freight.errors.count, "error") %> prohibited this freight from being saved:</h2>
-
-      <ul>
-      <% @freight.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+<% if @product.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+  <ul>
+  <% @product.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
   <% end %>
-
-  <div class="field">
-    <%= f.label :consignee %><br />
-    <%= f.select :consignee, Freight::EType %>
-  </div>
-
-  <div class="field">
-    <%= f.label :status %><br />
-    <%= f.select :status, Freight::EStatus %>
-  </div>
-
-  <div class="field">
-    <%= f.label :remark %><br />
-    <%= f.text_area :remark, :rows=>6 %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  </ul>
+</div>
 <% end %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
