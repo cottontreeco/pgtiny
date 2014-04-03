@@ -63,10 +63,34 @@ describe "Product pages" do
   end
 
   describe "new product" do
-    before {visit new_product_path}
+    let (:user) { FactoryGirl.create(:user)}
     let(:create) {"Create product"}
+    before(:each) do
+      valid_signin user
+      visit new_product_path
+    end
 
     it { should have_content('New Product') }
     it { should have_title(full_title('New Product')) }
+
+    describe "with invalid information" do
+      it "should not create a user" do
+        expect {click_button create}.not_to change(Product, :count)
+      end
+    end
+    describe "with valid information" do
+      before {fill_in "Name", with: "Example Product"}
+      it "should create a product" do
+        expect {click_button create}.to change(Product, :count).by(1)
+      end
+    end
+
+    describe "with repeated name" do
+      let!(:product) {FactoryGirl.create(:product, name: "Product 1")}
+      before {fill_in "Name", with: "Product 1"}
+      it "should not create a product" do
+        expect {click_button create}.not_to change(Product, :count)
+      end
+    end
   end
 end

@@ -102,6 +102,11 @@ describe "Authentication" do
           it {should have_title('Sign in')}
         end
       end
+
+      describe "when attempting to visit new product page" do
+        before { visit new_product_path }
+        it {should have_title('Sign in')}
+      end
     end
 
     describe "as wrong user" do

@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :signed_in_user, only: [:edit, :update, :destroy, :new]
   # GET /products
   # GET /products.json
   def index
@@ -40,7 +41,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(params[:product])
+    @product = Product.new(product_params)
 
     respond_to do |format|
       if @product.save
@@ -79,5 +80,11 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def product_params
+    params.require(:product).permit(:name)
   end
 end
