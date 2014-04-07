@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :signed_in_user, only: [:edit, :update, :destroy, :new]
+  before_action :signed_in_user, only: [:new, :create]
+  before_action :admin_user, only: [:destroy, :edit, :update]
   # GET /products
   # GET /products.json
   def index
@@ -60,8 +61,9 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
 
     respond_to do |format|
-      if @product.update_attributes(params[:product])
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+      if @product.update_attributes(product_params)
+        flash[:success] = "Product updated"
+        format.html { redirect_to @product} # notice: 'Product was successfully updated.'
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

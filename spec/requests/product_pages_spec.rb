@@ -26,7 +26,7 @@ describe "Product pages" do
       end
     end
 
-    describe "delete links" do
+    describe "edit and delete links" do
       it {should_not have_link('delete')}
       describe "as an admin user" do
         let(:admin) {FactoryGirl.create(:admin)}
@@ -34,10 +34,11 @@ describe "Product pages" do
           valid_signin admin # sign in directs to profile afterwards
           visit products_path # need to visit again
         end
-        it {should have_link('delete', href: product_path(Product.first))}
+        it {should have_link('Edit', href: edit_product_path(Product.first))}
+        it {should have_link('Delete', href: product_path(Product.first))}
         it "should be able to delete a product" do
           expect do
-            click_link('delete', match: :first)
+            click_link('Delete', match: :first)
           end.to change(Product, :count).by(-1)
         end
       end
@@ -93,4 +94,57 @@ describe "Product pages" do
       end
     end
   end
+
+  describe "edit" do
+    let (:admin) { FactoryGirl.create(:admin)}
+    let(:product) {FactoryGirl.create(:product)}
+    before do
+      valid_signin admin
+      visit edit_product_path(product)
+    end
+
+    describe "page" do
+      it {should have_content("Edit the product")}
+      it {should have_title("Edit Product")}
+    end
+
+    describe "with invalid information" do
+        before do
+          fill_in "Name", with: " "
+          click_button "Save changes"
+        end
+      it {should have_content('error')}
+    end
+
+    describe "with valid information" do
+      let(:new_name) {"New Name"}
+      before do
+        fill_in "Name", with: new_name
+        click_button "Save changes"
+      end
+      it {should have_title(new_name)}
+      it {should have_selector('div.alert.alert-success')}
+      specify {expect(product.reload.name).to eq new_name}
+    end
+
+    describe "as a non-admin user" do
+      let(:user) {FactoryGirl.create(:user)}
+      let(:new_name) {"Wrong Name"}
+      let(:params) do
+        {product: {name: new_name}}
+      end
+      before { valid_signin user, no_capybara: true }
+
+      describe "submitting a PATCH request to the Product#update action" do
+        before { patch product_path(product), params }
+        specify {expect(product.reload.name).not_to eq new_name}
+      end
+
+      describe "submitting a DELETE request to the Users#destroy action" do
+        before {delete user_path(user)}
+        specify {expect(response).to redirect_to(root_url)}
+      end
+    end
+  end
+
 end

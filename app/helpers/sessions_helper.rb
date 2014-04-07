@@ -55,4 +55,14 @@ module SessionsHelper
       redirect_to signin_url, notice: "Please sign in."
     end
   end
+
+  def admin_user
+    if (!signed_in?)
+      redirect_to signin_url, notice: "Please sign in."
+    elsif (!current_user.admin?)
+      redirect_to(root_url)
+    else
+      return true
+    end
+  end
 end

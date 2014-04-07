@@ -107,6 +107,26 @@ describe "Authentication" do
         before { visit new_product_path }
         it {should have_title('Sign in')}
       end
+
+      describe "when attempting to visit edit product page" do
+        let(:product) {FactoryGirl.create(:product)}
+        before { visit edit_product_path(product) }
+        it {should have_title('Sign in')}
+      end
+
+      describe "submitting a POST request to the Product#create action" do
+        let (:params) do
+          {product: {name: 'Test Product'}}
+        end
+        before {post products_path, params}
+        specify {expect(response).to redirect_to(signin_path)}
+      end
+
+      describe "submitting a PATCH request to the Product#update action" do
+        let(:new_product) {FactoryGirl.create(:product)}
+        before {patch product_path(new_product)}
+        specify {expect(response).to redirect_to(signin_path)}
+      end
     end
 
     describe "as wrong user" do
