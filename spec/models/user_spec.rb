@@ -18,6 +18,7 @@ describe User do
   it {should respond_to(:authenticate)}
   it {should respond_to(:admin)}
   it {should respond_to(:reviews)}
+  it {should respond_to(:user_feed)}
   it {should be_valid}
   it {should_not be_admin}
 
@@ -146,6 +147,15 @@ describe User do
       #expect do
       #  Review.find(review)
       #end.to raise_error(ActiveRecord::RecordNotFound)
+
+      describe "status" do
+        let(:unfollowed_review) do
+          FactoryGirl.create(:review, user: FactoryGirl.create(:user))
+        end
+        its(:user_feed) {should include(newer_review)}
+        its(:user_feed) {should include(older_review)}
+        its(:user_feed) {should_not include(unfollowed_review)}
+      end
     end
   end
 end

@@ -3,11 +3,16 @@
 
 <div class="row">
   <aside class="span4">
-    <h1><%= @product.name %></h1>
+    <section>
+        <h1><%= @product.name %></h1>
+    </section>
   </aside>
   <div class="span8">
+    <h3>Reviews (<%=@product.reviews.count%>)</h3>
+      <%if @review && @review.new_record? %>
+          <%=render 'shared/review_form'%>
+      <%end%>
     <%if @product.reviews.any?%>
-        <h3>Reviews (<%=@product.reviews.count%>)</h3>
         <ol class="reviews">
           <%=render partial: "reviews/product_review",
                     collection: @reviews, as: :review%>

@@ -19,3 +19,9 @@ RSpec::Matchers.define :have_error_message do |message|
     expect(page).to have_selector('div.alert.alert-error', text:message)
   end
 end
+
+RSpec::Matchers.define :have_submit_button do |value|
+  match do |actual|
+    actual.should have_selector("input[type=submit][value='#{value}']")
+  end
+end

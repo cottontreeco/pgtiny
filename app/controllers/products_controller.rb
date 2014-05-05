@@ -17,6 +17,13 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @reviews = @product.reviews.paginate(page: params[:page])
+    if signed_in?
+      @review = @reviews.where(user_id: current_user.id).first
+      if @review.nil?
+        @review = Review.new(product_id: @product.id, user_id: current_user.id)
+      end
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @product }

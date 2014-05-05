@@ -56,8 +56,7 @@ describe "Product pages" do
 
     describe "reviews" do
       it {should have_content(m1.remark)}
-      it {should have_link(m2.user.name,
-                           href: user_path(m2.user))}
+      it {should have_link(m2.user.name, href: user_path(m2.user))}
       it {should have_content(m2.remark)}
       it {should have_content(product.reviews.count)}
     end

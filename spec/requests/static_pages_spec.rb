@@ -25,6 +25,23 @@ describe "Static pages" do
     it "should have the content 'Sign up'" do
       expect(page).to have_content("Sign up")
     end
+
+    describe "for signed-in users" do
+      let(:user) {FactoryGirl.create(:user)}
+      before do
+        FactoryGirl.create(:review, user: user, remark: "Lorem ipsum")
+        FactoryGirl.create(:review, user: user, remark: "Dolor sit amet")
+        valid_signin user
+        visit root_path
+      end
+
+      it "should render the user's feed" do
+        user.user_feed.each do |item|
+          # the first # is Capybara syntax to test for CSS id
+          expect(page).to have_selector("li##{item.id}", text: item.remark)
+        end
+      end
+    end
   end
 
   describe "About page" do
