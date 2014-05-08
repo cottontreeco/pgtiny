@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validates :password, length: {minimum: 6}
   has_secure_password
 
-  def user_feed
+  def feed_from_following_user
     # this gets all reviews from followings
     Review.where(user_id: id)
   end

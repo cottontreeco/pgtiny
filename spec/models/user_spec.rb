@@ -18,7 +18,7 @@ describe User do
   it {should respond_to(:authenticate)}
   it {should respond_to(:admin)}
   it {should respond_to(:reviews)}
-  it {should respond_to(:user_feed)}
+  it {should respond_to(:feed_from_following_user)}
   it {should be_valid}
   it {should_not be_admin}
 
@@ -136,6 +136,7 @@ describe User do
     it "should have the right reviews in the right order" do
       expect(@user.reviews.to_a).to eq [newer_review, older_review]
     end
+
     it "should destroy associated reviews" do
       reviews = @user.reviews.to_a #must call to_a to create a copy
       @user.destroy #otherwise destroy will make reviews array empty
@@ -147,15 +148,15 @@ describe User do
       #expect do
       #  Review.find(review)
       #end.to raise_error(ActiveRecord::RecordNotFound)
-
-      describe "status" do
-        let(:unfollowed_review) do
-          FactoryGirl.create(:review, user: FactoryGirl.create(:user))
-        end
-        its(:user_feed) {should include(newer_review)}
-        its(:user_feed) {should include(older_review)}
-        its(:user_feed) {should_not include(unfollowed_review)}
-      end
     end
+  end
+
+  describe "status" do
+    let(:unfollowed_review) do
+      FactoryGirl.create(:review, user: FactoryGirl.create(:user))
+    end
+    its(:feed_from_following_user) {should include(newer_review)}
+    its(:feed_from_following_user) {should include(older_review)}
+    its(:feed_from_following_user) {should_not include(unfollowed_review)}
   end
 end
