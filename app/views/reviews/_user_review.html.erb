@@ -8,4 +8,9 @@
   <span class="timestamp">
     Posted <%=time_ago_in_words(review.created_at)%> ago.
   </span>
+  <% if current_user?(review.user) %>
+    <%= link_to "delete", review, method: :delete,
+                 data: {confirm: "You sure?"},
+                 title: review.remark %>
+  <% end %>
 </li>

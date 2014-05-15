@@ -1,5 +1,6 @@
 class ReviewsController<ApplicationController
   before_action :signed_in_user, only: [:create, :destroy]
+  before_action :correct_user, only: :destroy
 
   def index
 
@@ -18,11 +19,16 @@ class ReviewsController<ApplicationController
   end
 
   def destroy
-
+    @review.destroy
+    redirect_to root_url
   end
 
-  private
+private
   def review_params
     params.require(:review).permit(:user_id, :product_id, :remark)
+  end
+  def correct_user
+    @review = current_user.reviews.find_by(id: params[:id])
+    redirect_to root_url if @review.nil?
   end
 end

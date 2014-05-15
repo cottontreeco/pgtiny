@@ -47,4 +47,17 @@ describe "Review pages" do
       it {should_not have_submit_button('Post')}
     end
   end
+
+  describe "review destruction" do
+    before {FactoryGirl.create(:review, product: product, user: user)}
+    describe "as correct user" do
+      before do
+        valid_signin user
+        visit product_path(product)
+      end
+      it "should delete a review" do
+        expect {click_link "delete"}.to change(Review, :count).by(-1)
+      end
+    end
+  end
 end

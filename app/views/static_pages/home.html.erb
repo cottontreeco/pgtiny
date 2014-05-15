@@ -1,4 +1,13 @@
 <div class="center hero-unit">
+
+<% if signed_in? %>
+    <div class=""row">
+        <div class="span8">
+          <h3>Review Feed</h3>
+          <%=render 'shared/product_feed'%>
+        </div>
+    </div>
+<% else %>
 <h1> Welcome to PG Freight Forwarder Web App</h1>
 <h2>
   This is the home page for the
@@ -9,3 +18,4 @@
 </div>
 
 <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+<% end %>
