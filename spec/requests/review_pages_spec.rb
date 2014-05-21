@@ -8,9 +8,21 @@ describe "Review pages" do
     visit product_path(product)
   end
 
-  describe "review lising" do
+  describe "review listing" do
     describe "as a guest user" do
       it {should_not have_submit_button('Post')}
+    end
+
+    describe "pagination" do
+      before(:all) {30.times {FactoryGirl.create(:review, product: product)}}
+      after(:all) {Review.delete_all}
+      before {visit product_path(product)}
+      it {should have_selector('div.pagination')}
+      it "should list each review" do
+        Review.paginate(page: 1).each do |review|
+          expect(page).to have_selector('li', text: review.remark)
+        end
+      end
     end
   end
 
