@@ -1,6 +1,6 @@
 <li>
   <span class="product">
-    <%=link_to(review.product.name, product_path(review.product))%>:
+    <%=link_to(review.product.name, review.product)%>:
   </span>
   <span class="remark">
     <%=review.remark%>
@@ -10,7 +10,7 @@
   </span>
   <% if current_user?(review.user) %>
     <%= link_to "delete", review, method: :delete,
-                 data: {confirm: "You sure?"},
-                 title: review.remark %>
+             data: {confirm: "You sure?"},
+             title: review.remark %>
   <% end %>
 </li>

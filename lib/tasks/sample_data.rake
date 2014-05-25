@@ -24,8 +24,8 @@ namespace :db do
       name  = Faker::Company.name
       Product.create!(name: name)
     end
-  #pick 6 users create 40 random product reviews
-    users = User.all(limit: 6)
+  #pick 36 users create 40 random product reviews
+    users = User.all(limit: 36)
     products = Product.all()
     40.times do |n|
       remark = Faker::Lorem.sentence(5)

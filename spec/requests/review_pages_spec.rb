@@ -14,8 +14,12 @@ describe "Review pages" do
     end
 
     describe "pagination" do
-      before(:all) {30.times {FactoryGirl.create(:review, product: product)}}
-      after(:all) {Review.delete_all}
+      before(:all) {36.times {FactoryGirl.create(:review, product: product)}}
+      after(:all) do
+        Review.delete_all
+        User.delete_all
+        Product.delete_all
+      end
       before {visit product_path(product)}
       it {should have_selector('div.pagination')}
       it "should list each review" do
@@ -70,6 +74,15 @@ describe "Review pages" do
       it "should delete a review" do
         expect {click_link "delete"}.to change(Review, :count).by(-1)
       end
+    end
+
+    describe "as a different user" do
+      let(:diff_user) {FactoryGirl.create(:user)}
+      before do
+        valid_signin diff_user
+        visit product_path(product)
+      end
+      it {should_not have_link('delete')}
     end
   end
 end
