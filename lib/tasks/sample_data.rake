@@ -25,7 +25,7 @@ namespace :db do
       Product.create!(name: name)
     end
   #pick 36 users create 40 random product reviews
-    users = User.all(limit: 36)
+    users = User.limit(36)
     products = Product.all()
     40.times do |n|
       remark = Faker::Lorem.sentence(5)
