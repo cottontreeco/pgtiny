@@ -1,6 +1,8 @@
 <% if @feed_items.any? %>
 <ol class="reviews">
-  <%= render partial: 'shared/feed_item', collection: @feed_items %>
+  <%=render partial: "reviews/product_review",
+            collection: @feed_items,
+            as: :review%>
 </ol>
 <%= will_paginate @feed_items %>
 <% end %>

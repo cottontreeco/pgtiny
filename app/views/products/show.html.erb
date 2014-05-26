@@ -15,7 +15,8 @@
     <%if @product.reviews.any?%>
         <ol class="reviews">
           <%=render partial: "reviews/product_review",
-                    collection: @reviews, as: :review%>
+                    collection: @reviews,
+                    as: :review%>
         </ol>
         <%=will_paginate @reviews%>
     <%end%>

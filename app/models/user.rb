@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   #destroying user will also remove the reviews
   has_many :reviews, dependent: :destroy
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :followed_users, through: :relationships, source: :followed
   before_save { self.email=email.downcase}
   before_create :create_remember_token
   validates :name, presence: true, length: {maximum: 50}

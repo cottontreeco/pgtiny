@@ -19,6 +19,9 @@ describe User do
   it {should respond_to(:admin)}
   it {should respond_to(:reviews)}
   it {should respond_to(:product_feed)}
+  it {should respond_to(:relationships)}
+  it {should respond_to(:followed_users)}
+
   it {should be_valid}
   it {should_not be_admin}
 

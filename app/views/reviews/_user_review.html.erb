@@ -1,16 +1,8 @@
-<li>
+<li id="<%=review.id%>">
   <span class="product">
     <%=link_to(review.product.name, review.product)%>:
   </span>
-  <span class="remark">
-    <%=review.remark%>
-  </span>
-  <span class="timestamp">
-    Posted <%=time_ago_in_words(review.created_at)%> ago.
-  </span>
-  <% if current_user?(review.user) %>
-    <%= link_to "delete", review, method: :delete,
-             data: {confirm: "You sure?"},
-             title: review.remark %>
-  <% end %>
+ <%=render partial: "reviews/review",
+           object: review,
+           as: :review%>
 </li>
