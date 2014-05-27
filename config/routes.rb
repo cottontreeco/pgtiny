@@ -1,8 +1,19 @@
 Pgship::Application.routes.draw do
-  resources :users
+  resources :users  do
+    # member matches /user/1/following and /users/1/followers
+    member do
+      get :following, :followers
+    end
+
+    # collection matches /users/tigers
+    # collection do
+    #  get :tigers
+    # end
+  end
   resources :products
   resources :sessions, only: [:new, :create, :destroy]
   resources :reviews, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 
   root('static_pages#home')
   match('help', to: 'static_pages#help', via: 'get')
