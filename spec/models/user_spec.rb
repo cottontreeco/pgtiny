@@ -18,7 +18,7 @@ describe User do
   it {should respond_to(:authenticate)}
   it {should respond_to(:admin)}
   it {should respond_to(:reviews)}
-  it {should respond_to(:product_feed)}
+  it {should respond_to(:reviewer_feed)}
   it {should respond_to(:relationships)}
   it {should respond_to(:followed_users)}
   it {should respond_to(:reverse_relationships)}
@@ -162,9 +162,24 @@ describe User do
       let(:unfollowed_review) do
         FactoryGirl.create(:review, user: FactoryGirl.create(:user))
       end
-      its(:product_feed) {should include(newer_review)}
-      its(:product_feed) {should include(older_review)}
-      its(:product_feed) {should_not include(unfollowed_review)}
+      let(:followed_user) {FactoryGirl.create(:user)}
+      let(:product1) {FactoryGirl.create(:product)}
+      let(:product2) {FactoryGirl.create(:product)}
+      let(:product3) {FactoryGirl.create(:product)}
+      before do
+        @user.follow!(followed_user)
+        followed_user.reviews.create!(remark: "Lorem ipsum 1", product: product1)
+        followed_user.reviews.create!(remark: "Lorem ipsum 2", product: product2)
+        followed_user.reviews.create!(remark: "Lorem ipsum 3", product: product3)
+      end
+      its(:reviewer_feed) {should include(newer_review)}
+      its(:reviewer_feed) {should include(older_review)}
+      its(:reviewer_feed) {should_not include(unfollowed_review)}
+      its(:reviewer_feed) do
+      followed_user.reviews.each do |review|
+          should include(review)
+        end
+      end
     end
   end
 

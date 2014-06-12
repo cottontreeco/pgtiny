@@ -36,7 +36,7 @@ describe "Static pages" do
       end
 
       it "should render the user's feed" do
-        user.product_feed.each do |item|
+        user.reviewer_feed.each do |item|
           # the first # is Capybara syntax to test for CSS id
           expect(page).to have_selector("li##{item.id}", text: item.remark)
         end

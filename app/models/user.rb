@@ -16,9 +16,10 @@ class User < ActiveRecord::Base
   validates :password, length: {minimum: 6}
   has_secure_password
 
-  def product_feed
+  def reviewer_feed
     # this gets all reviews from followings
-    Review.where(user_id: id)
+    # Review.where(user_id: id)
+    Review.from_users_followed_by(self)
   end
 
   def User.new_remember_token
