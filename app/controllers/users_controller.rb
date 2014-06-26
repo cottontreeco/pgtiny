@@ -91,6 +91,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/1/following
   def following
     @title = "Following"
     @user = User.find(params[:id])
@@ -98,6 +99,7 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+  # GET /users/1/followers
   def followers
     @title = "Followers"
     @user = User.find(params[:id])

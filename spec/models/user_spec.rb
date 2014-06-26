@@ -185,9 +185,11 @@ describe User do
 
   describe "following" do
     let(:other_user) {FactoryGirl.create(:user)}
+    let(:third_user) {FactoryGirl.create(:user)}
     before do
       @user.save
       @user.follow!(other_user)
+      third_user.follow!(@user)
     end
     it {should be_following(other_user)}
     its(:followed_users) {should include(other_user)}
@@ -201,6 +203,24 @@ describe User do
       before {@user.unfollow!(other_user)}
       it {should_not be_following(other_user)}
       its(:followed_users) {should_not include(other_user)}
+    end
+
+    it "should destroy followed user relationship" do
+      relationships = @user.relationships.to_a
+      @user.destroy
+      expect(relationships).not_to be_empty
+      relationships.each do |relationship|
+        expect(Relationship.where(id: relationship.id)).to be_empty
+      end
+    end
+
+    it "should destroy follower relationship" do
+      reverse_relationships = @user.reverse_relationships.to_a
+      @user.destroy
+      expect(reverse_relationships).not_to be_empty
+      reverse_relationships.each do |reverse_relationship|
+        expect(Relationship.where(id: reverse_relationship.id)).to be_empty
+      end
     end
   end
 end
