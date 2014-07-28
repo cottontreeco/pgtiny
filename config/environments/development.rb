@@ -39,4 +39,14 @@ Pgship::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # AWS configuration for paperclip
+  config.paperclip_defaults = {
+      storage: :s3,
+      s3_credentials: {
+          bucket: 'pgtiny',
+          access_key_id: 'AKIAIUFE4OUOQVKQ4WEA',
+          secret_access_key: '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'
+      }
+  }
 end

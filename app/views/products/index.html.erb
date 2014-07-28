@@ -1,14 +1,14 @@
-<% provide(:title, 'All products') %>
+<% provide(:title, 'Products') %>
 <h1>All products</h1>
 
-<%= will_paginate %>
-
-<ul class="products">
-  <%=render @products%>
-</ul>
-
-<%= will_paginate %>
-
-<div class="btn btn-mini btn-primary">
+<div class="btn btn-primary">
   <%= link_to 'New Product', new_product_path %>
 </div>
+
+<%= will_paginate %>
+<div id="product-container" class="transitions-enabled">
+    <ul class="products">
+      <%=render @products%>
+    </ul>
+</div>
+<%= will_paginate %>

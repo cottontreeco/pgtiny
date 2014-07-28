@@ -15,6 +15,23 @@ class User < ActiveRecord::Base
   validates :password, length: {minimum: 6}
   has_secure_password
 
+  # associates the attribute ":avatar" with a file attachment
+  has_attached_file :avatar,
+                    styles: {
+                      small: '64x64>',
+                      thumb: '100x100#',
+                      square: '200x200>'},
+                    default_url: "/assets/:style/missing-avatar.png" ,
+                    bucket: 'pgtiny',
+                    s3_credentials: {
+                        bucket: 'pgtiny',
+                        access_key_id: 'AKIAIUFE4OUOQVKQ4WEA',
+                        secret_access_key: '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'
+                    }
+
+  # Validate the attached image is image/jpg, image/png, etc
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
   def reviewer_feed
     # this gets all reviews from followings
     # Review.where(user_id: id)

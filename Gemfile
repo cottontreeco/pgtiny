@@ -6,6 +6,9 @@ gem 'bcrypt'
 gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'paperclip'
+gem 'aws-sdk'
+gem 'masonry-rails'
 
 group :development, :test do
   gem 'rspec-rails'
