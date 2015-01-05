@@ -8,7 +8,8 @@ body {
 }
 
 #masonry-container {
-  margin: auto; /* centers the tiles */
+  margin: 0 auto; /* centers the tiles */
+  width: auto;
   background: #FFF;
   padding: 5px;
   margin-bottom: 20px;

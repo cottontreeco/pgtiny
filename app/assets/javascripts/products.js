@@ -4,15 +4,16 @@
 
 jQuery(document).ready(function () {
   var $container = $('#product-container');
-  $container.imagesLoaded(function () {
   $container.masonry({
       itemSelector:'.box',
+      isFitWidth:true,
       isAnimated:true,
       animationOptions:{
         duration:750,
         easing:'linear',
         queue:false
       }
+    }).imagesLoaded(function () {
+      $container.masonry('reload');
     });
-});
 })

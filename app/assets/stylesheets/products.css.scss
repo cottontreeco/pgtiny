@@ -1,0 +1,20 @@
+// Place all the styles related to the Sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.social-bar{
+  font-size:12;
+  position:relative;
+  width:100%;
+}
+
+.product .social-bar{
+  background-color:#fbfbfb;
+  height:48px;
+  -webkit-transition:background-color 0.2s ease-in-out;
+  -moz-transition:background-color 0.2s ease-in-out;
+  -ms-transition:background-color 0.2s ease-in-out;
+  -o-transition:background-color 0.2s ease-in-out;
+  transition:background-color 0.2s ease-in-out;
+  box-shadow:inset 0px 3px 8px -4px rgba(0,0,0,0.07)
+}

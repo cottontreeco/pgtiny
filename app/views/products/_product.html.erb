@@ -1,11 +1,17 @@
+
 <li>
-<div class="box col4">
+<!--<div class="box col2">-->
+  <div class="product">
   <%= link_to image_tag(product.photo.url(:thumb), size: "100x100", alt: product.name), product %>
+  <div class="social-bar">
+    <%= product.name %>
+  </div>
   <% if (current_user && current_user.admin?) %>
     | <%= link_to 'Edit', edit_product_path(product) %>
     | <%= link_to 'Delete', product,
                   method: :delete,
                   data: { confirm: 'Are you sure?' } %>
   <% end %>
-</div>
+  </div>
+<!--</div>-->
 </li>

@@ -110,8 +110,8 @@ describe "User pages" do
     end
 
     describe "reviews" do
-      it {should have_link(m1.product.name,
-                           href: product_path(m1.product))}
+      it {should have_link(m1.product.name, href: product_path(m1.product))}
+      it {should have_css("img[src*='missing-photo.png']")}
       it {should have_content(m1.remark)}
       it {should have_content(m2.remark)}
       it {should have_content(user.reviews.count)}

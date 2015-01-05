@@ -1,5 +1,6 @@
 <li id="<%=review.id%>">
   <span class="product">
+    <%= image_tag review.product.photo.url(:small)%>
     <%=link_to(review.product.name, review.product)%>:
   </span>
  <%=render partial: "reviews/review",

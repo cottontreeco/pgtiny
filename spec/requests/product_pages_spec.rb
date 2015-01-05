@@ -8,7 +8,7 @@ describe "Product pages" do
     # is the first time product is mentioned
     let!(:product) {FactoryGirl.create(:product)}
     before(:each) { visit products_path }
-    it {should have_title('All products')}
+    it {should have_title('Products')}
     it {should have_content('All products')}
 
     describe "show product link" do
@@ -57,6 +57,7 @@ describe "Product pages" do
     describe "reviews" do
       it {should have_content(m1.remark)}
       it {should have_link(m2.user.name, href: user_path(m2.user))}
+      it {should have_css("img[src*='missing-avatar.png']")}
       it {should have_content(m2.remark)}
       it {should have_content(product.reviews.count)}
     end

@@ -1,5 +1,6 @@
 <li id="<%=review.id%>">
   <span class="user">
+    <%= image_tag review.user.avatar.url(:small)%>
     <%=link_to(review.user.name, review.user)%>:
   </span>
   <%=render partial: "reviews/review",
