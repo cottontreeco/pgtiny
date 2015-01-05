@@ -9,6 +9,7 @@ gem 'bootstrap-will_paginate'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'masonry-rails'
+gem 'responders'
 
 group :development, :test do
   gem 'rspec-rails'
