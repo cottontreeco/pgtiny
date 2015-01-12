@@ -3,6 +3,8 @@
     <div class="field">
       <%= f.hidden_field :product_id, value: @review.product_id %>
       <%= f.hidden_field :user_id, value: @review.user_id %>
+      Your rating
+      <%= f.select :score, Review::SCORE_VALUES%>
       <%= f.text_area :remark, placeholder: "Compose new review..."%>
     </div>
     <%= f.submit "Post", class: "btn btn-large btn-primary" %>

@@ -21,4 +21,11 @@ class Product < ActiveRecord::Base
   # Validate the attached image is image/jpg, image/png, etc
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
 
+  def average_rating
+    if reviews.size != 0
+      reviews.sum(:score) / reviews.size
+    else
+      0
+    end
+  end
 end

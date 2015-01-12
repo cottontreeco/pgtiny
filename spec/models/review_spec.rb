@@ -6,10 +6,14 @@ describe Review do
   #before {@review = Review.new(remark: "Lorem ipsum",
   #    user_id: user.id,
   #    product_id: product.id)}
-  before {@review = user.reviews.build(remark: "Lorem ipsum",
-      product_id: product.id)}
+  before {@review = user.reviews.build(
+      remark: "Lorem ipsum",
+      product_id: product.id,
+      score: 3)}
+
   subject {@review}
 
+  it {should respond_to(:score)}
   it {should respond_to(:remark)}
   it {should respond_to(:user_id)}
   it {should respond_to(:user)}
@@ -28,6 +32,16 @@ describe Review do
 
   describe "when product_id is not present" do
     before {@review.product_id=nil}
+    it {should_not be_valid}
+  end
+
+  describe "with zero score" do
+    before {@review.score=0}
+    it {should_not be_valid}
+  end
+
+  describe "with out of range score" do
+    before {@review.score=6}
     it {should_not be_valid}
   end
 

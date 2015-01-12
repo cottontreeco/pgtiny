@@ -15,6 +15,7 @@ FactoryGirl.define do
   end
 
   factory :review do
+    score 3
     remark "Lorem ipsum"
     user
     product
