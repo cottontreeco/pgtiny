@@ -25,8 +25,9 @@ class ReviewsController<ApplicationController
 
 private
   def review_params
-    params.require(:review).permit(:user_id, :product_id, :remark)
+    params.require(:review).permit(:user_id, :product_id, :remark, :score)
   end
+
   def correct_user
     @review = current_user.reviews.find_by(id: params[:id])
     redirect_to root_url if @review.nil?

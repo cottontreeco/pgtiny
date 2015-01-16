@@ -15,6 +15,7 @@ describe Review do
 
   it {should respond_to(:score)}
   it {should respond_to(:remark)}
+
   it {should respond_to(:user_id)}
   it {should respond_to(:user)}
   its(:user){should eq user}
@@ -32,6 +33,16 @@ describe Review do
 
   describe "when product_id is not present" do
     before {@review.product_id=nil}
+    it {should_not be_valid}
+  end
+
+  describe "when remark is not present" do
+    before {@review.remark=nil}
+    it {should_not be_valid}
+  end
+
+  describe "when score is not present" do
+    before {@review.score=nil}
     it {should_not be_valid}
   end
 

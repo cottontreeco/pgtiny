@@ -28,6 +28,18 @@ describe "Review pages" do
         end
       end
     end
+
+    describe "average rating" do
+      let(:review1) {FactoryGirl.create(:review, product: product)}
+      let(:review2) {FactoryGirl.create(:review, product: product)}
+      before {
+        review1.score=1
+        review2.score=5
+        visit product_path(product)
+        save_and_open_page
+      }
+      it {should have_content('Average rating: 3')}
+    end
   end
 
   describe "review creation" do
@@ -48,7 +60,10 @@ describe "Review pages" do
     end
 
     describe "with valid information" do
-      before {fill_in 'review_remark', with: "Lorem ipsum"}
+      before do
+        fill_in 'review_remark', with: "Lorem ipsum"
+        select '3', from: 'review_score'
+      end
       it "should create a review" do
         expect {click_button "Post"}.to change(Review, :count).by(1)
       end

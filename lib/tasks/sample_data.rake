@@ -44,6 +44,7 @@ def make_reviews
     users = User.limit(36)
     products = Product.all()
     40.times do |n|
+      score = Faker::Number.between(1,5).round.to_s
       remark = Faker::Lorem.sentence(5)
       users.each{|user| user.reviews.create!(remark: remark, product: products[n])}
     end
