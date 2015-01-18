@@ -8,7 +8,9 @@ describe Product do
     subject {@product}
     it {should respond_to(:name)}
     it {should respond_to(:reviews)}
+    it {should respond_to(:average_score)}
     it {should be_valid}
+    specify {expect(@product.average_score).to eq 0}
 
     describe "when name is not present" do
       before {@product.name="  "}
@@ -31,14 +33,20 @@ describe Product do
 
     describe "review associations" do
       before {@product.save}
+
       let!(:older_review) do
-        FactoryGirl.create(:review, product: @product, created_at: 1.day.ago)
+        FactoryGirl.create(:review, product: @product, created_at: 1.day.ago, score:1)
       end
       let!(:newer_review) do
-        FactoryGirl.create(:review, product: @product, created_at: 1.hour.ago)
+        FactoryGirl.create(:review, product: @product, created_at: 1.hour.ago, score: 3)
       end
+
       it "should have the right reviews in the right order" do
         expect(@product.reviews.to_a).to eq [newer_review, older_review]
+      end
+
+      it "should have the right average score" do
+        expect(@product.average_score).to eq 2
       end
 
       it "should destroy associated reviews" do

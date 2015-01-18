@@ -168,9 +168,9 @@ describe User do
       let(:product3) {FactoryGirl.create(:product)}
       before do
         @user.follow!(followed_user)
-        followed_user.reviews.create!(remark: "Lorem ipsum 1", product: product1)
-        followed_user.reviews.create!(remark: "Lorem ipsum 2", product: product2)
-        followed_user.reviews.create!(remark: "Lorem ipsum 3", product: product3)
+        followed_user.reviews.create!(remark: "Lorem ipsum 1", product: product1, score: 1)
+        followed_user.reviews.create!(remark: "Lorem ipsum 2", product: product2, score: 2)
+        followed_user.reviews.create!(remark: "Lorem ipsum 3", product: product3, score: 3)
       end
       its(:reviewer_feed) {should include(newer_review)}
       its(:reviewer_feed) {should include(older_review)}
