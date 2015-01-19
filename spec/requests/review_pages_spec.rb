@@ -29,16 +29,13 @@ describe "Review pages" do
       end
     end
 
-    describe "average rating" do
-      let(:review1) {FactoryGirl.create(:review, product: product)}
-      let(:review2) {FactoryGirl.create(:review, product: product)}
-      before {
-        review1.score=1
-        review2.score=5
-        visit product_path(product)
-        save_and_open_page
-      }
-      it {should have_content('Average rating: 3')}
+    describe "ratings" do
+      let!(:review1) {FactoryGirl.create(:review, product: product, score: 2)}
+      let!(:review2) {FactoryGirl.create(:review, product: product, score: 5)}
+      before { visit product_path(product) }
+      it {should have_content('Rating: 2')}
+      it {should have_content('Rating: 5')}
+      it {should have_content('Average rating: 3.5')}
     end
   end
 

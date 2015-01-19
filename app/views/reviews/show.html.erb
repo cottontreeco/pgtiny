@@ -1,0 +1,17 @@
+<% provide(:title, @product.name) %>
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1><%= @product.name %></h1>
+      <%= image_tag @product.photo.url(:square) %>
+    </section>
+    <section>
+      <p>Average rating: <%= @product.average_score %></p>
+    </section>
+  </aside>
+  <div class="span8">
+    <%=render partial: 'reviews/review', object: @review, as: :review%>
+  </div>
+</div>

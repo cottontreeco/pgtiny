@@ -11,8 +11,8 @@ Pgship::Application.routes.draw do
     # end
   end
   resources :products
+  resources :reviews, only: [:create, :destroy, :show]
   resources :sessions, only: [:new, :create, :destroy]
-  resources :reviews, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
 
   root('static_pages#home')

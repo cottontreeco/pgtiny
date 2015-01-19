@@ -6,6 +6,18 @@ class ReviewsController<ApplicationController
 
   end
 
+  # GET /reviews/1
+  # GET /reviews/1.json
+  def show
+    @review = Review.find(params[:id])
+    @product = @review.product
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @review }
+    end
+  end
+
   def create
     @review = Review.new(review_params)
     @product = Product.find(@review.product_id)

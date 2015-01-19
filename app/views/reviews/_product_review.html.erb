@@ -3,7 +3,13 @@
     <%= image_tag review.user.avatar.url(:small)%>
     <%=link_to(review.user.name, review.user)%>:
   </span>
-  <%=render partial: "reviews/review",
+  <% if current_user?(review.user) %>
+     <%=link_to(render(partial: "reviews/review",
+            object: review,
+            as: :review), review, method: :get)%>
+  <% else %>
+      <%=render partial: "reviews/review",
             object: review,
             as: :review%>
+  <%end%>
 </li>
