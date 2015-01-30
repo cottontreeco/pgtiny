@@ -1,0 +1,17 @@
+<%=provide(:title, 'Edit review')%>
+<h1>Update your review</h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= button_to "Delete",
+                  @review,
+                  method: :delete,
+                  class: "btn btn-large btn-primary",
+                  data: {confirm: "You sure?"}%>
+    <%= form_for(@review) do |f| %>
+        <%= render(partial: 'form', locals: {f: f})%>
+        <%= f.submit("Save changes",
+                     class: "btn btn-large btn-primary") %>
+    <% end %>
+  </div>
+</div>
+

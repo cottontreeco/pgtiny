@@ -1,9 +1,27 @@
 class ReviewsController<ApplicationController
-  before_action :signed_in_user, only: [:create, :destroy]
-  before_action :correct_user, only: :destroy
+  before_action :signed_in_user, only: [:create, :destroy, :edit, :update]
+  before_action :correct_user, only: [:destroy, :edit, :update]
 
   def index
+  end
 
+  # GET /reviews/1/edit
+  def edit
+  end
+
+  # PUT /reviews/1
+  # PUT /reviews/1.json
+  def update
+    respond_to do |format|
+      if @review.update_attributes(review_params)
+        flash[:success] = "Review updated"
+        format.html { redirect_to @review.user } # notice: 'Review was successfully updated.'
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @review.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /reviews/1
@@ -18,6 +36,8 @@ class ReviewsController<ApplicationController
     end
   end
 
+  # POST /reviews
+  # POST /reviews.json
   def create
     @review = Review.new(review_params)
     @product = Product.find(@review.product_id)

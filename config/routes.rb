@@ -11,7 +11,7 @@ Pgship::Application.routes.draw do
     # end
   end
   resources :products
-  resources :reviews, only: [:create, :destroy, :show]
+  resources :reviews, only: [:create, :destroy, :show, :edit, :update]
   resources :sessions, only: [:new, :create, :destroy]
   resources :relationships, only: [:create, :destroy]
 

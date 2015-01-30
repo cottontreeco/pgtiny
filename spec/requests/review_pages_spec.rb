@@ -4,13 +4,20 @@ describe "Review pages" do
   subject {page}
   let(:user) {FactoryGirl.create(:user)}
   let!(:product) {FactoryGirl.create(:product)}
-  before (:each) do
-    visit product_path(product)
-  end
 
   describe "review listing" do
+    before {visit product_path(product)}
     describe "as a guest user" do
       it {should_not have_submit_button('Post')}
+    end
+
+    describe "as a reviewer" do
+      let!(:review) {FactoryGirl.create(:review, product: product, user: user, score: 5)}
+        before do
+          valid_signin user
+          visit product_path(product)
+        end
+      it {should have_link('edit', href: edit_review_path(review))}
     end
 
     describe "pagination" do
@@ -76,15 +83,46 @@ describe "Review pages" do
     end
   end
 
-  describe "review destruction" do
-    before {FactoryGirl.create(:review, product: product, user: user)}
-    describe "as correct user" do
-      before do
+  describe "edit review" do
+    let!(:review) {FactoryGirl.create(:review, product: product, user: user, score: 5)}
+
+    describe "page" do
+      before(:each) do
         valid_signin user
-        visit product_path(product)
+        visit edit_review_path(review)
       end
-      it "should delete a review" do
-        expect {click_link "delete"}.to change(Review, :count).by(-1)
+
+      it {should have_content("Update your review")}
+      it {should have_title("Edit review")}
+
+      describe "with invalid information" do
+        before do
+          select 0, from: "Score"
+          click_button "Save changes"
+        end
+        it {should have_content('error')}
+      end
+
+      describe "with valid information" do
+        let(:new_remark) {"New remark"}
+        let(:new_score) {1}
+        before do
+          fill_in "Remark", with: new_remark
+          select new_score, from: "Score"
+          click_button "Save changes"
+        end
+
+        it {should have_content(new_remark)}
+        it {should have_selector('div.alert.alert-success')}
+
+        specify {expect(review.reload.remark).to eq new_remark}
+        specify {expect(review.reload.score).to eq new_score}
+      end
+      
+      describe "click delete button" do
+        it "should delete a review" do
+          expect {click_button "Delete"}.to change(Review, :count).by(-1)
+        end
       end
     end
 
@@ -94,7 +132,7 @@ describe "Review pages" do
         valid_signin diff_user
         visit product_path(product)
       end
-      it {should_not have_link('delete')}
+      it {should_not have_link('edit')}
     end
   end
 end
